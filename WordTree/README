@@ -1,10 +1,13 @@
 Introduction
 ------------
-Describe your application here.
+WordTree is splunk visualization app for analyzing a lot of sentences. 
+This app is using google chart api.
+If you want to read about google word tree chart, refer the following URL.
+https://developers.google.com/chart/interactive/docs/gallery/wordtree
 
 Installation
 ------------
-Describe how to install your application here (if applicable).
+1. Download splunk enterprise. (Refer http://www.splunk.com/en_us/download/splunk-enterprise.html)
 
 Usage
 -----
