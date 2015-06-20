@@ -1,2 +1,4 @@
+# DS_Store file ignore
+.DS_Store
 # All pyo files ignore
 *.pyo
