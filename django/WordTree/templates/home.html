@@ -7,43 +7,7 @@
     {% block css %}
         <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}{{app_name}}/custom.css" />
         <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}splunkjs/css/dashboard.css" />
-        <style>        
-            .main-dashboard {
-                padding: 15px;
-            }
-            .fieldset {
-                border-style: double;
-                border-width: 1px;
-                border-color: darkgray;
-                padding: inherit;
-                border-top-left-radius:4px;
-                border-top-right-radius:4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-left-radius: 4px;
-            }
-            .search-area {
-                border-style: double;
-                border-width: 1px;
-                border-color: darkgray;
-                padding: inherit;
-                border-top-left-radius:4px;
-                border-top-right-radius:4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-left-radius: 4px;
-            }
-            
-            .draw-button{
-                height: 48px;
-                border-top-left-radius:4px;
-                border-top-right-radius:4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-left-radius: 4px;
-            }
-            #ta_text{
-                width: 99%;
-                height: 100px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}{{app_name}}/wordtree.css" />
     {% endblock css %}
 
     {% block content %}
@@ -112,11 +76,9 @@
         require(["underscore", "jquery", "Spinner"], function(_, $, Spinner){
             
             require([
-                //"underscore", 
                 "splunkjs/mvc/simpleform/input/dropdown",
                 "splunkjs/ready!",
                 ], function( 
-                //    _, 
                     DropdownInput,
                     mvc) 
             {
@@ -175,10 +137,9 @@
                         //document.getElementById('Loading').innerText = "Search Failed..";
                     });
                     wordtree_search.on('search:progress', function(properties) {
-                        //document.getElementById('Loading').innerText = "Word Tree Loading..";
+                        
                     });
                     wordtree_search.on('search:done', function(properties) {
-                        //document.getElementById('Loading').innerText = "";
                         if(properties.content.eventCount == 0){
                             window.spinner.stop();
                         }
@@ -194,9 +155,20 @@
                         if (!data.hasData()) {
                             return;
                         }
-                        // Format Splunk data for Sankey
+                        
+                        if(_.contains(results.data().fields, "Data") === false){
+                            window.spinner.stop();
+                            return;
+                        }
+                        if(results.data().rows.length > 10000){
+                            alert('Limit Maximum sentence length is 10000.');
+                            window.spinner.stop();
+                            return;
+                        }
+
                         collection = results.collection().toJSON();
                         rsc.dataArray = _.pluck(collection, "Data")
+
                         var tmp = [];
                         _.each(rsc.dataArray, function(d, i){
                             if(d != null){
@@ -217,7 +189,7 @@
                     if(!checkParams()){
                         return;
                     }
-                    //$('#wordtree_basic').hide();
+                    $('#wordtree_basic').remove();
                     var iCategory = splunkjs.mvc.Components.getInstance("iCategory");
                     if(iCategory.val() === "Text"){
 
@@ -330,6 +302,8 @@
             if($('#Greeting').length === 1){
                 $('#Greeting').remove();  
             }
+
+            $('#wordtree_area').append('<div id="wordtree_basic"></div>');
 
             rsc.chartData = google.visualization.arrayToDataTable(rsc.dataArray);
             rsc.chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));

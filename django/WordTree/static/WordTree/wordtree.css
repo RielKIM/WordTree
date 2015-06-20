@@ -1,0 +1,35 @@
+.main-dashboard {
+    padding: 15px;
+}
+.fieldset {
+    border-style: double;
+    border-width: 1px;
+    border-color: darkgray;
+    padding: inherit;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.search-area {
+    border-style: double;
+    border-width: 1px;
+    border-color: darkgray;
+    padding: inherit;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+            
+.draw-button{
+    height: 48px;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+#ta_text{
+    width: 99%;
+    height: 100px;
+}
