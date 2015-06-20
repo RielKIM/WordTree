@@ -1,4 +1,4 @@
-# WordTree
+# WordTree (ver. 1.0.1)
 
 ##Introduction
 WordTree is splunk visualization app for analyzing a lot of sentences. 
